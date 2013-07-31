@@ -1,0 +1,203 @@
+<!doctype html>
+<html>
+	<head>
+		<title>Fun with jQuery</title>
+		<meta charset="utf-8">
+		<script src="jquery-1.9.1.min.js"></script>
+		<script>
+		$(document).ready(function(){
+			$(".details").click(
+				function(){
+					var vacation = $(this).closest(".vacation");
+					var amount = vacation.data("price");
+					var price = $('<p class="details price">Price $'+amount+'</p>');
+					vacation.find(".vote").after(price);
+					$(this).remove();
+
+					var tickets = vacation.find(".tickets");
+					tickets.slideDown();
+					tickets.find(".total").text(amount);
+					tickets.find(".quantity").keyup(function(){
+						var cost = vacation.data("price");
+						var quantity = $(this).val();
+						tickets.find(".total").text(cost * quantity);
+					});
+				});
+
+			//Slide the hidden paragraph
+
+			$(".expand").click(function(event){
+				event.preventDefault();
+			$(".more").slideDown();
+
+			});
+
+			//You voted alert
+
+			$(".vote").click(function(){
+				alert("You voted YAY!" + $(this).attr('#vacations;'));
+
+			});
+
+			// Update "total price" when quantity changes
+
+			// Give user feedback for each vote
+
+			// Reveal hidden parahraph on click
+
+		});
+		</script>
+		<style>
+			.tickets {
+				display:none;
+				color:white;
+			}
+			.quantity {
+				width: 30px;
+			}
+			body {
+				background-color: #666;
+			}
+			#vacations-wrapper {
+				width:900px;
+				margin:10px auto;
+			}
+			h1, #vacations-wrapper > p {
+				color:white;
+			}
+			.sorting li {
+				float:right;
+				list-style-type: none;
+				margin-right:10px;
+				background-color:#aaa;
+				color:white;
+			}
+			.sorting li a {
+				color:#333;
+				padding:5px 10px;
+				display: inline-block;
+				text-decoration: none;
+			}
+			.sorting li:hover {
+				background-color:#ccc;
+			}
+			#vacations {
+				clear: both;
+				padding-top: 30px;
+				height:240px;
+			}
+			#vacations > li {
+				float:left;
+				width:180px;
+				background-color: #444;
+				list-style-type: none;
+				margin-right: 20px;
+				padding: 10px 5px;
+				border:1px solid black;
+			}
+			#vacations > li h2 {
+				color: white;
+				font-size: 1em;
+				margin: 0 0 5px 0;
+			}
+			.vote {
+				clear: both;
+				padding:0 0 0 66px;
+				width:52px;
+			}
+			.vote li {
+				float: left;
+				list-style-type: none;
+				background-color: #999;
+				margin-bottom: 10px;
+				padding:5px 8px;
+			}
+			.vote li:hover {
+				background-color: #bbb;
+			}
+			.vote li a {
+				text-decoration: none;
+				color:green;
+			}
+			.details {
+				clear: both;
+				display: block;
+				text-align: center;
+				background-color: #9cf;
+				padding: 5px 0; 
+				border:1px solid black;
+				font-weight: bold;
+				cursor: pointer;
+			}
+			.price {
+				clear: both;
+				display: block;
+				text-align: center;
+				padding: 5px 0; 
+				border:1px solid black;
+				font-weight: bold;
+				cursor: pointer;
+				background-color: #9fc;
+				margin:0;
+			}
+			.more {
+				display: none;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="vacations-wrapper">
+			<h1>Vacation Packages</h1>
+			 
+			<ul class="sorting">
+				<li><a href="#">America</a></li>
+				<li><a href="#">Europe</a></li>
+				<li><a href="#">Asia</a></li>
+			</ul>
+
+			<ul id="vacations">
+				<li class="vacation america" data-price="399.99">
+					<h2>San Francisco, California</h2>
+					<ul class="vote"><li><a href="#">&uarr;</a></li><li><a href="#">&darr;</a></li></ul>
+					<span class="details">Get Price</span>
+					<div class="tickets">
+						<p>Tickets <input type="number" class="quantity" value="1" /></p>
+						<p>Total price: $<span class="total"></span></p>
+					</div>
+				</li>
+				<li class="vacation america sale" data-price="299.99">
+					<h2>Washington, DC</h2>
+					<ul class="vote"><li><a href="#">&uarr;</a></li><li><a href="#">&darr;</a></li></ul>
+					<span class="details">Get Price</span>
+					<div class="tickets">
+						<p>Tickets <input type="number" class="quantity" value="1" /></p>
+						<p>Total price: $<span class="total"></span></p>
+					</div>
+				</li>
+				<li class="vacation europe" data-price="499.99">
+					<h2>London, England</h2>
+					<ul class="vote"><li><a href="#">&uarr;</a></li><li><a href="#">&darr;</a></li></ul>
+					<span class="details">Get Price</span>
+					<div class="tickets">
+						<p>Tickets <input type="number" class="quantity" value="1" /></p>
+						<p>Total price: $<span class="total"></span></p>
+					</div>
+				</li>
+				<li class="vacation asia sale" data-price="999.99">
+					<h2>Shanghai, China</h2>
+					<ul class="vote"><li><a href="#">&uarr;</a></li><li><a href="#">&darr;</a></li></ul>
+					<span class="details">Get Price</span>
+					<div class="tickets">
+						<p>Tickets <input type="number" class="quantity" value="1" /></p>
+						<p>Total price: $<span class="total"></span></p>
+					</div>
+				</li>
+			</ul>
+
+			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. <a href="#" class="expand">Read more</a></p>
+
+			<p class="more">Read more here... Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+
+		</div>
+	</body>
+</html>
